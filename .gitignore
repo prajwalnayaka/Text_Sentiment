@@ -1,0 +1,20 @@
+# --- Python Internals ---
+__pycache__/
+*.pyc
+
+# --- IDE Settings ---
+.idea/
+.vscode/
+
+# --- Datasets ---
+datasets/
+
+# --- Trained Models & Checkpoints ---
+emotion_results/
+emotion_results_v2/
+LR_RFC joblibs/
+
+# --- Environment ---
+venv/
+env/
+.env
