@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
+<div class="row justify-content-center text-margin-space">
+    <div class="col-md-6">
 
-        <div class="card p-4 mb-4">
+        <div class="card p-4 mb-4 rounded-5 shadow-lg card-bg text-white">
             <h2 class="mb-3">How are you feeling?</h2>
-            <textarea id="userText" class="form-control mb-3" rows="4" placeholder="Type something like: 'I finally finished my internship project!'"></textarea>
+            <textarea id="userText" class="form-control mb-3" rows="4" placeholder="Type what you feel :)"></textarea>
             <button onclick="predictEmotion()" class="btn btn-primary btn-lg w-100">Analyze Emotion</button>
         </div>
 
