@@ -8,8 +8,7 @@ def index():
 
 @app.route("/about", methods=["GET"])
 def about():
-    return jsonify({"message": "This API is for our emotion model."})
-
+    return render_template('about.html')
 
 @app.route("/accept", methods=["POST"])
 def accept_text():

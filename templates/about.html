@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card p-5">
+    <h1 class="mb-4">About This Project</h1>
+
+    <p class="lead">
+        This is an advanced Emotion Classification System built using a
+        <strong>DistilBERT Transformer model</strong> fine-tuned on over 100,000 sentences.
+    </p>
+
+    <hr class="my-4">
+
+    <h3>🛠️ How it was built</h3>
+    <ul>
+        <li><strong>Model:</strong> DistilBERT (66 Million Parameters).</li>
+        <li><strong>Dataset:</strong> A custom fusion of 3 datasets (106k samples).</li>
+        <li><strong>Technique:</strong> Full Fine-Tuning + Iterative Data Cleaning.</li>
+        <li><strong>Performance:</strong> Achieved ~89% accuracy after correcting labeling errors in the 'Sadness' and 'Happiness' classes.</li>
+    </ul>
+
+    <div class="alert alert-info mt-4">
+        <strong>Key Insight:</strong> During development, we discovered that the model was smarter than the original dataset!
+        By using the model to audit the data, we fixed over 140 labeling errors, significantly boosting precision.
+    </div>
+
+    <a href="/" class="btn btn-outline-primary mt-3">Try the Model &rarr;</a>
+</div>
+{% endblock %}

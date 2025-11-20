@@ -1,135 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emotion Model API Tester</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fb;
-            color: #1e293b;
-        }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col items-center p-4 sm:p-8">
+{% extends "layout.html" %}
 
-    <div class="w-full max-w-2xl bg-white shadow-xl rounded-xl p-6 sm:p-8 space-y-8">
-        <header class="text-center">
-            <h1 class="text-3xl font-bold text-indigo-700 mb-2">Emotion Model API Tester</h1>
-            <p class="text-gray-500">Test the Flask API endpoints for the Emotion Classification Model.</p>
-        </header>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-        <!-- API Endpoint Interaction Section -->
-        <section class="space-y-6">
-            <h2 class="text-2xl font-semibold border-b pb-2 text-gray-700">1. Text Submission Endpoint (`/accept`)</h2>
+        <div class="card p-4 mb-4">
+            <h2 class="mb-3">How are you feeling?</h2>
+            <textarea id="userText" class="form-control mb-3" rows="4" placeholder="Type something like: 'I finally finished my internship project!'"></textarea>
+            <button onclick="predictEmotion()" class="btn btn-primary btn-lg w-100">Analyze Emotion</button>
+        </div>
 
-            <div class="bg-indigo-50 p-4 rounded-lg shadow-inner">
-                <p class="text-sm font-medium text-indigo-700 mb-2">API Method: <span class="font-mono bg-indigo-200 px-2 py-0.5 rounded text-xs">POST</span></p>
-                <textarea id="textInput"
-                          class="w-full p-3 border border-indigo-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 transition duration-150"
-                          rows="3"
-                          placeholder="Enter text to classify (e.g., 'I am so happy that I fixed that error!')."></textarea>
-                <button onclick="postText()" id="postButton"
-                        class="mt-3 w-full sm:w-auto px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 transition duration-150">
-                    Submit Text
-                </button>
-            </div>
+        <div id="resultCard" class="card p-4 text-center d-none">
+            <h4 class="text-muted">Detected Emotion:</h4>
 
-            <div id="acceptResult" class="result-box bg-gray-100 p-4 rounded-lg shadow-md">
-                <p class="font-semibold text-gray-700 mb-1">Response:</p>
-                <pre class="whitespace-pre-wrap text-sm text-gray-800 font-mono"></pre>
-            </div>
-        </section>
+            <div id="emojiDisplay" class="emoji-large mb-2">🤔</div>
+            <h1 id="emotionLabel" class="display-4 fw-bold text-primary">...</h1>
 
-        <!-- General Endpoints Section -->
-        <section class="space-y-4">
-            <h2 class="text-2xl font-semibold border-b pb-2 text-gray-700">2. General Endpoints</h2>
+            <hr>
+            <p class="text-muted small">
+                Inference Time: <span id="timeLabel">0.00</span>s
+            </p>
+        </div>
 
-            <div class="flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0 sm:space-x-4">
-                <!-- About Endpoint -->
-                <div class="flex-1 bg-white border border-gray-200 p-4 rounded-lg shadow-sm">
-                    <p class="font-medium text-gray-600 mb-2">Endpoint: `/about` (GET)</p>
-                    <button onclick="getEndpoint('/about')"
-                            class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150">
-                        Test About
-                    </button>
-                    <div id="aboutResult" class="result-box mt-3 text-sm">
-                        <pre class="whitespace-pre-wrap text-gray-700 font-mono"></pre>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
+</div>
 
-    <script>
-        // NOTE: Since this is designed to run in a browser where the Flask server
-        // is likely running on the same host and port (e.g., localhost:5000),
-        // we use relative paths. If your Flask app is on a different domain,
-        // replace the base URL with your actual API URL (e.g., 'http://your-api-url.com').
-        const BASE_URL = '';
+<script>
+    // Emoji Mapping for visual flair
+    const emojiMap = {
+        'happiness': '😄', 'sadness': '😢', 'anger': '😡',
+        'fear': '😱', 'love': '😍', 'surprise': '😲',
+        'neutral': '😐', 'fun': '🥳', 'enthusiasm': '🤩',
+        'empty': '😶', 'worry': '😟', 'hate': '🤬', 'relief': '😌'
+    };
 
-        /**
-         * Generic function to fetch a GET endpoint and display the result.
-         * @param {string} endpoint The endpoint path (e.g., '/', '/about')
-         */
-        async function getEndpoint(endpoint) {
-            const resultBox = document.querySelector(`#${endpoint.replace('/', '') || 'home'}Result pre`);
-            resultBox.textContent = 'Loading...';
+    async function predictEmotion() {
+        const text = document.getElementById("userText").value;
+        const resultCard = document.getElementById("resultCard");
 
-            try {
-                const response = await fetch(BASE_URL + endpoint);
-                const data = await response.json();
+        if (!text) return alert("Please enter some text!");
 
-                resultBox.textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                resultBox.textContent = `Error: Could not connect to API at ${BASE_URL}${endpoint}. Is the Flask server running?`;
-                console.error('Fetch Error:', error);
-            }
-        }
+        // Send data to Flask
+        const response = await fetch('/accept', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
 
-        /**
-         * Function to submit text to the POST /accept endpoint.
-         */
-        async function postText() {
-            const textInput = document.getElementById('textInput');
-            const userText = textInput.value.trim();
-            const resultBox = document.querySelector('#acceptResult pre');
-            const postButton = document.getElementById('postButton');
+        const data = await response.json();
 
-            if (userText === '') {
-                resultBox.textContent = JSON.stringify({ error: "Please enter some text." }, null, 2);
-                return;
-            }
+        // Update UI
+        resultCard.classList.remove("d-none"); // Show the card
+        document.getElementById("emotionLabel").innerText = data.emotion.toUpperCase();
+        document.getElementById("timeLabel").innerText = data.total_time;
 
-            postButton.disabled = true;
-            postButton.textContent = 'Submitting...';
-            resultBox.textContent = 'Sending POST request...';
-
-            try {
-                const response = await fetch(BASE_URL + '/accept', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ text: userText })
-                });
-
-                const data = await response.json();
-
-                // Display the response data and HTTP status
-                resultBox.textContent = JSON.stringify(data, null, 2);
-
-            } catch (error) {
-                resultBox.textContent = `Error: Could not connect to API at ${BASE_URL}/accept. Is the Flask server running?`;
-                console.error('POST Error:', error);
-            } finally {
-                postButton.disabled = false;
-                postButton.textContent = 'Submit Text';
-            }
-        }
-    </script>
-</body>
-</html>
+        // Set Emoji
+        const emoji = emojiMap[data.emotion] || '🤖';
+        document.getElementById("emojiDisplay").innerText = emoji;
+    }
+</script>
+{% endblock %}
