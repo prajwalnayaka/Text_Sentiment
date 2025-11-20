@@ -17,7 +17,7 @@ def accept_text():
     user_text = data.get('text')
     if not user_text:
         return jsonify({"error": "No text was provided"}), 400
-    return infer(user_text)
+    return jsonify(infer(user_text))
 
 if __name__ == "__main__":
     app.run(debug=True)

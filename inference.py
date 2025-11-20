@@ -12,22 +12,20 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
 model.eval() #Evaluation mode
 print(f"Model loaded into {device}.")
-total_time = 0
 
 def predict_emotion(text):
-    global total_time
-    start = time.time()
+    start_t=time.time()
     with torch.no_grad():
         inputs = tokenizer(text, truncation=True, padding=True, return_tensors='pt')
         inputs = {key: val.to(device) for key, val in inputs.items()}
         outputs = model(**inputs)
         logits = outputs.logits
         predicted_class_id = torch.argmax(logits, dim=1).item()
-        end = time.time()
-        total_time = end - start
-        return model.config.id2label[predicted_class_id]
+        end_t= time.time()
+        total_time = end_t - start_t
+        return model.config.id2label[predicted_class_id],total_time
 
 def infer(sentence):
-    prediction = predict_emotion(sentence)
-    result={'sentence': sentence, 'emotion': prediction, 'total_time': total_time}
+    prediction,total_time = predict_emotion(sentence)
+    result={'sentence': sentence, 'emotion': prediction, 'total_time': round(total_time,2)}
     return result
