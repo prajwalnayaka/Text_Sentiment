@@ -7,17 +7,20 @@
         <div class="card p-4 mb-4 rounded-5 shadow-lg card-bg text-white">
             <h2 class="mb-3">How are you feeling?</h2>
             <textarea id="userText" class="form-control mb-3" rows="4" placeholder="Type what you feel :)"></textarea>
-            <button onclick="predictEmotion()" class="btn btn-primary btn-lg w-100">Analyze Emotion</button>
+
+            <div class="text-center">
+                <button onclick="predictEmotion()" class="btn btn-outline-light btn-lg mt-3">Analyze Emotion</button>
+            </div>
         </div>
 
-        <div id="resultCard" class="card p-4 text-center d-none">
-            <h4 class="text-muted">Detected Emotion:</h4>
+        <div id="resultCard" class="card p-4 text-center d-none rounded-5 result-card">
+            <h4 class="text-white">Detected Emotion:</h4>
 
-            <div id="emojiDisplay" class="emoji-large mb-2">🤔</div>
-            <h1 id="emotionLabel" class="display-4 fw-bold text-primary">...</h1>
+            <div id="emojiDisplay" class="emoji-large mb-2" style="font-size: 5rem;">🤔</div>
+            <h1 id="emotionLabel" class="display-4 fw-bold" style="color:bisque">...</h1>
 
             <hr>
-            <p class="text-muted small">
+            <p class="text-white medium">
                 Inference Time: <span id="timeLabel">0.00</span>s
             </p>
         </div>

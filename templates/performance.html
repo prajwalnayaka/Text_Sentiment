@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center about-margin-spacer">
+    <div class="card p-4 rounded-5 wide-card card-bg text-white shadow-lg">
+        <h1 class="mb-4 text-center">Model Performance Metrics</h1>
+        <p class="lead text-center text-muted">DistilBERT Fine-Tuning Results Across 3 Epochs</p>
+
+        <table class="table table-dark table-striped table-bordered text-white table-sm mt-3">
+            <thead class="bg-primary">
+                    <tr>
+                        <th>Epoch</th>
+                        <th>Training Loss</th>
+                        <th>Validation Accuracy</th>
+                        <th>Accuracy</th>
+                        <th>F1</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>Precision Fun</th>
+                        <th>Precision Surprise</th>
+                        <th>Precision Neutral</th>
+                        <th>Precision Enthusiasm</th>
+                        <th>Precision Happiness</th>
+                        <th>Precision Hate</th>
+                        <th>Precision Sadness</th>
+                        <th>Precision Empty</th>
+                        <th>Precision Love</th>
+                        <th>Precision Relief</th>
+                        <th>Precision Anger</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>0.349200</td>
+                        <td>0.367162</td>
+                        <td>0.885096</td>
+                        <td>0.888268</td>
+                        <td>0.894924</td>
+                        <td>0.885096</td>
+                        <td>0.923581</td>
+                        <td>0.7550882</td>
+                        <td>0.963037</td>
+                        <td>0.998424</td>
+                        <td>0.729825</td>
+                        <td>0.967809</td>
+                        <td>0.678454</td>
+                        <td>0.992661</td>
+                        <td>0.973849</td>
+                        <td>0.978587</td>
+                        <td>0.919028</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>0.282900</td>
+                        <td>0.354562</td>
+                        <td>0.889610</td>
+                        <td>0.891328</td>
+                        <td>0.894542</td>
+                        <td>0.889610</td>
+                        <td>0.894949</td>
+                        <td>0.771513</td>
+                        <td>0.968844</td>
+                        <td>0.974869</td>
+                        <td>0.784091</td>
+                        <td>0.971846</td>
+                        <td>0.708262</td>
+                        <td>0.954545</td>
+                        <td>0.947528</td>
+                        <td>0.963427</td>
+                        <td>0.921986</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>0.213400</td>
+                        <td>0.388078</td>
+                        <td>0.889046</td>
+                        <td>0.890193</td>
+                        <td>0.891950</td>
+                        <td>0.889046</td>
+                        <td>0.887663</td>
+                        <td>0.754302</td>
+                        <td>0.975758</td>
+                        <td>0.960825</td>
+                        <td>0.808297</td>
+                        <td>0.963768</td>
+                        <td>0.735971</td>
+                        <td>0.927242</td>
+                        <td>0.946573</td>
+                        <td>0.949949</td>
+                        <td>0.939355</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <div class="mt-3 text-center">
+            <a href="/" class="btn btn-outline-light btn-lg mt-3">Try the Model &rarr;</a>
+        </div>
+    </div> </div>
+{% endblock %}

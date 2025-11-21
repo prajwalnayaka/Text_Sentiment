@@ -18,5 +18,9 @@ def accept_text():
         return jsonify({"error": "No text was provided"}), 400
     return jsonify(infer(user_text))
 
+@app.route("/performance", methods=["GET"])
+def performance():
+    return render_template('performance.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
