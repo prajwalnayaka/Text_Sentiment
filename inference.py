@@ -3,7 +3,7 @@ from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassific
 emotions=['fun', 'surprise', 'neutral', 'enthusiasm', 'happiness', 'hate', 'sadness', 'empty', 'love', 'relief', 'anger'] #Same order as emotions list during training
 id2label = {i: label for i, label in enumerate(emotions)}
 label2id = {label: i for i, label in enumerate(emotions)}
-MODEL_PATH = './emotion_results/checkpoint-10636' #Version with lowest val loss
+MODEL_PATH = 'PrajwalNayaka/text-emotion-distilbert' #Version with lowest val loss
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased') #Same tokenizer used for training
 model = DistilBertForSequenceClassification.from_pretrained(MODEL_PATH) #The trained model
 model.config.id2label = id2label #Configure the model's id2label accordingly
