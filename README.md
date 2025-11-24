@@ -8,8 +8,15 @@
 
 
 
-This project uses the DistilBERT model. I concatenated 3 smaller datasets into a huge dataset in order to prevent data starvation as 
+This project uses the DistilBERT model. I concatenated 3 smaller datasets into a huge dataset in order to prevent data starvation as
 transformer architecture (such as in BERT or DistilBERT) is extremely data hungry. Click [here](https://www.kaggle.com/datasets/prajwalnayakat/text-emotion) for the dataset.
 ---
 
-### Try the site [here.](https://text-emotion.nayaka.space/)
+
+
+
+
+
+
+### Try the site [here](https://text-emotion.nayaka.space/).
+

@@ -19,6 +19,5 @@ venv/
 env/
 .env
 
-
 model.onnx
 model_quantized.onnx
