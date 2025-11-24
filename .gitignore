@@ -18,3 +18,7 @@ LR_RFC joblibs/
 venv/
 env/
 .env
+
+
+model.onnx
+model_quantized.onnx
