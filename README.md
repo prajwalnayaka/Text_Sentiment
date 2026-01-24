@@ -34,8 +34,8 @@ To solve this problem I created a custom dataset by concatenating 3 different sm
 
 - File to convert the trained model from PyTorch to ONNX. 
 - ONNX stands for Open Neural Network Exchange.
-- It is a universal standard to share trained models in.
-- Allows for a lightweight and efficient model which is crucial for deployment.
+- It is an universal standard format to share trained models in.
+- Allows for a lightweight and efficient model inference which is crucial for deployment.
 
 ## creating_dataset.ipynb
 
