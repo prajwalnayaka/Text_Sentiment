@@ -21,3 +21,4 @@ env/
 
 model.onnx
 model_quantized.onnx
+rando.py
